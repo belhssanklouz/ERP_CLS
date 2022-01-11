@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
 
-
+    let n = 0;
 const UsersTableHead = [
     'N°',
     'name',
@@ -27,7 +27,7 @@ const UsersTableHead = [
 const renderHead = (item, index) => <th key={index}>{item}</th>
 const renderBody = (item, index) => (
     <tr key={index}>
-        <td>{index}</td>
+        <td>{item.order}</td>
         <td>{item.name}</td>
         <td>{item.email}</td>
         <td>{item.phoneNumber}</td>
@@ -82,7 +82,7 @@ const Users = () => {
                                 <div className="card">
                                     <div className="card__body">
                                         <Table
-                                            limit='10'
+                                            limit='5'
                                             headData={UsersTableHead}
                                             renderHead={(item, index) => renderHead(item, index)}
                                             bodyData={users}
