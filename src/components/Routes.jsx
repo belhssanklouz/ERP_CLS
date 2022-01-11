@@ -1,0 +1,29 @@
+import React from 'react'
+
+import { Route, Switch} from 'react-router-dom'
+
+import Dashboard from '../pages/Dashboard'
+import Users from '../pages/Users'
+import EditUsers from '../pages/EditUsers'
+import Products from '../pages/Products/Products'
+import Categories from '../pages/Categories/Categories'
+import Client from '../pages/Client/Client'
+import EditCategorie from '../pages/Categories/EditCategorie'
+import EditProduct from '../pages/Products/EditProduct';
+
+const Routes = () => {
+    return (
+        <Switch>
+            <Route path='/' exact component={Dashboard}/>
+            <Route path='/users' component={Users}/>
+            <Route exact path='/editusers/:id' component={EditUsers} />
+            <Route exact path='/products' component={Products} />
+            <Route exact path='/editproduct/:id' component={EditProduct} />
+            <Route exact path='/categories' component={Categories} />
+            <Route exact path='/editcategory/:id' component={EditCategorie} />
+            <Route exact path='/client' component={Client} />
+        </Switch>
+    )
+}
+
+export default Routes;
