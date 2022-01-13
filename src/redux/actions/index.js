@@ -7,7 +7,7 @@ import {GET_ALL_USERS,GET_ALL_USERS_SUCC,ADD_USER_SUCC,ADD_USER,
     GET_ALL_CLIENT,GET_ALL_CLIENT_SUCC,GET_ALL_CLIENT_FAIL,
     ADD_CLIENT,ADD_CLIENT_SUCC,ADD_CLIENT_FAIL,
     EDIT_CATEGORY,EDIT_CATEGORY_SUCC,EDIT_CATEGORY_FAIL,
-     EDIT_PRODUCT,EDIT_PRODUCT_SUCC,EDIT_PRODUCT_FAIL} from '../types/actionsTyps'
+     EDIT_PRODUCT,EDIT_PRODUCT_SUCC,EDIT_PRODUCT_FAIL, GET_ALL_CATEGORY_BI, GET_ALL_CATEGORY_SUCC_BI, GET_ALL_CATEGORY_FAIL, GET_ALL_CATEGORY_FAIL_BI} from '../types/actionsTyps'
 
 
 export const getAllUseres=()=>async(dispatch)=>{
@@ -95,6 +95,17 @@ export const getAllCategorys = () => async(dispatch)=>{
         console.log('get all Categorys error',error)
     }
 }
+export const getCatByID = (idcat) => async(dispatch)=>{
+    await dispatch({type:GET_ALL_CATEGORY_BI})
+    try {
+        const allCategorys = await axios(`http://192.168.1.219:8888/api/v1/category/getcategorybyid/${idcat}`);
+        dispatch({type:GET_ALL_CATEGORY_SUCC_BI,payload:allCategorys.data})
+        
+    } catch (error) {
+        dispatch({type:GET_ALL_CATEGORY_FAIL_BI})
+        console.log('get Categorys error',error.response.data)
+    }
+}
 
 export const addCategories = (newCategory) => async (dispatch) =>{
     await dispatch ({type:ADD_CATEGORY})
@@ -110,14 +121,14 @@ export const addCategories = (newCategory) => async (dispatch) =>{
 
 export const editCategories = (editCategory) => async (dispatch) =>{
     await dispatch ({type:EDIT_CATEGORY})
+    console.log(editCategory)
     try {
-        const editCat = await axios.patch(`http://192.168.1.219:8888/api/v1/category/update/${editCategory._id.id}`,{name:editCategory.name,description:editCategory.description});
-        const allCategorys = await axios("http://192.168.1.219:8888/api/v1/category/getallcategory");
+        const editCat = await axios.patch(`http://192.168.1.219:8888/api/v1/category/update/${editCategory._id}`,{name:editCategory.name,description:editCategory.description});
 
         dispatch({type:EDIT_CATEGORY_SUCC,payload:editCat.data})
         
     } catch (error) {
-        dispatch({type:EDIT_CATEGORY_FAIL,payload:error.response.data})
+        dispatch({type:EDIT_CATEGORY_FAIL,payload:error.response})
     }
 }
 

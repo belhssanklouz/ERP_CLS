@@ -53,7 +53,7 @@ const renderBody = (item, index) => (
       <td>{item.description}</td>
       <td>
           <IconButton aria-label='edit'>
-              <Link to={`/editcategory/${item._id}`} ><EditIcon/></Link>
+              <Link to={`/editcategory/${item._id}`} rel="noopener noreferrer" ><EditIcon/></Link>
           </IconButton>
           <IconButton onClick={  () => {if(window.confirm('Delete the item?')){ dispatch(deleteCategory(item._id))};}} aria-label='delete'>
         

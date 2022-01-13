@@ -7,6 +7,8 @@ import { getAllCategorys,editProduct, getAllProducts } from '../../redux/actions
 import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+
+
 const EditProduct = () => {
 
     const iddd = useParams();
