@@ -1,4 +1,4 @@
-import {ADD_CATEGORY,ADD_CATEGORY_SUCC,GET_ALL_CATEGORY,GET_ALL_CATEGORY_SUCC,GET_ALL_CATEGORY_FAIL,
+import {ADD_CATEGORY,ADD_CATEGORY_SUCC,ADD_CATEGORY_FAIL,GET_ALL_CATEGORY,GET_ALL_CATEGORY_SUCC,GET_ALL_CATEGORY_FAIL,
     DELETE_CATEGORY,DELETE_CATEGORY_SUCC,DELETE_CATEGORY_FAIL,
     EDIT_CATEGORY,EDIT_CATEGORY_SUCC,EDIT_CATEGORY_FAIL} from '../types/actionsTyps';
 
@@ -6,7 +6,9 @@ const initialState ={
     loading:false,
     error:null,
     categories:null,
-    response:''
+    responseadd:null,
+    responseedit:null,
+
 }
 
 const categoryReducer = (state=initialState,{type,payload}) =>{
@@ -28,15 +30,14 @@ const categoryReducer = (state=initialState,{type,payload}) =>{
             return{
                 ...state,
                 loading:false,
-                response:payload
+                responseedit:payload
             }    
         case GET_ALL_CATEGORY_FAIL:
         case EDIT_CATEGORY_FAIL:
             return{
                 ...state,
                 loading:false,
-
-                error:payload
+                responseedit:payload
             }
         case ADD_CATEGORY:
             return{
@@ -47,7 +48,13 @@ const categoryReducer = (state=initialState,{type,payload}) =>{
             return{
                 ...state,
                 loading:false,
-                categories:payload
+                responseadd:payload
+            }
+        case ADD_CATEGORY_FAIL:
+            return{
+                ...state,
+                loading:false,
+                responseadd:payload
             }
         case DELETE_CATEGORY_SUCC:
             return{

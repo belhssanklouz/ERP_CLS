@@ -10,7 +10,8 @@ import { useHistory } from 'react-router-dom';
 
 
 const EditCategorie = (props) => {
-
+   const responseedit = useSelector(state => state.categoryReducer.responseedit) || null;
+console.log('responseedit',responseedit)
     const iddd = useParams();
     const initialValues={
         _id:iddd,
@@ -26,11 +27,16 @@ const EditCategorie = (props) => {
         handleInputChange
     } = UseForm(initialValues)
     const history = useHistory()
-    const submitHandler = (e) => {
-        e.preventDefault();
-        dispatch(editCategories(values))
-      history.push('/')
-     
+    const submitHandler = async () => {
+        
+        await dispatch(editCategories(values))
+        if(responseedit){
+
+            if( responseedit.msg==="Category updated successfully "){
+                  history.push('/categories')
+            }
+        }
+
     }
     const dispatch=useDispatch();
     useEffect(() => {
@@ -52,6 +58,7 @@ const EditCategorie = (props) => {
         <Grid item xs={12}>
             <Input name='_id' value={el._id} onChange={handleInputChange} type='hidden'/>
             <Input name='name' label='Name' value={el.name} onChange={handleInputChange} />
+            {!responseedit ? null : responseedit.msg }
             <Input name='description' label='Description' value={el.description} onChange={handleInputChange} />          
         </Grid>
         </Grid>

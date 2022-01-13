@@ -2,7 +2,7 @@ import axios from "axios"
 import {GET_ALL_USERS,GET_ALL_USERS_SUCC,ADD_USER_SUCC,ADD_USER,
     ADD_PRODUCT,ADD_PRODUCT_SUCC,GET_ALL_PRODUCT,GET_ALL_PRODUCT_SUCC,ADD_PRODUCT_FAIL,
     DELETE_PRODUCT,DELETE_PRODUCT_SUCC,DELETE_PRODUCT_FAIL,
-    ADD_CATEGORY,ADD_CATEGORY_SUCC,GET_ALL_CATEGORY,GET_ALL_CATEGORY_SUCC,
+    ADD_CATEGORY,ADD_CATEGORY_SUCC,ADD_CATEGORY_FAIL,GET_ALL_CATEGORY,GET_ALL_CATEGORY_SUCC,
     DELETE_CATEGORY, DELETE_CATEGORY_SUCC,DELETE_CATEGORY_FAIL,
     GET_ALL_CLIENT,GET_ALL_CLIENT_SUCC,GET_ALL_CLIENT_FAIL,
     ADD_CLIENT,ADD_CLIENT_SUCC,ADD_CLIENT_FAIL,
@@ -100,11 +100,11 @@ export const addCategories = (newCategory) => async (dispatch) =>{
     await dispatch ({type:ADD_CATEGORY})
     try {
         const addCategory = await axios.post('http://192.168.1.219:8888/api/v1/category/addcategory',newCategory);
-        const allCategorys = await axios("http://192.168.1.219:8888/api/v1/category/getallcategory");
-        dispatch({type:ADD_CATEGORY_SUCC,payload:allCategorys.data})
+        //const allCategorys = await axios("http://192.168.1.219:8888/api/v1/category/getallcategory");
+        dispatch({type:ADD_CATEGORY_SUCC,payload:addCategory.data})
         
     } catch (error) {
-        console.log(error)
+       dispatch({type:ADD_CATEGORY_FAIL,payload:error.response.data})
     }
 }
 
@@ -117,7 +117,7 @@ export const editCategories = (editCategory) => async (dispatch) =>{
         dispatch({type:EDIT_CATEGORY_SUCC,payload:editCat.data})
         
     } catch (error) {
-        dispatch({type:EDIT_CATEGORY_FAIL,payload:error.response})
+        dispatch({type:EDIT_CATEGORY_FAIL,payload:error.response.data})
     }
 }
 

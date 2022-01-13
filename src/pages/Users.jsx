@@ -1,7 +1,5 @@
 import React,{useState,useEffect} from 'react'
-
 import Table from '../components/table/Table'
-
 // import customerList from '../assets/JsonData/customers-list.json'
 
 import axios from 'axios';

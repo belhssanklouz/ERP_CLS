@@ -27,6 +27,7 @@ const Categories = () => {
    // fetch with redux
    const categories = useSelector(state => state.categoryReducer.categories) || [];
    const loading = useSelector(state => state.categoryReducer.loading) ;
+   const responseadd = useSelector(state => state.categoryReducer.responseadd) || null;
 
    const dispatch = useDispatch()
   useEffect(()=>{
@@ -71,6 +72,9 @@ const renderBody = (item, index) => (
         {loading ? (<Loading />) : 
         (<React.Fragment>
             <div className='control'>
+                <Button onClick={()=>window.location.reload(false)}> 
+                        actualiser
+                    </Button>
             <Button variant='outlined' onClick={()=>setOpenModal(true)}>Add new Category</Button>
             </div>
             <div className="row">
@@ -88,11 +92,14 @@ const renderBody = (item, index) => (
                             </div>
                         </div>
                     </div>
+                    
                     <Modal 
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     title='Add new Category'>
-                        <AddCategories setOpenModal={setOpenModal} />
+                       
+                        
+                        {!responseadd ?  <AddCategories setOpenModal={setOpenModal} /> : responseadd.msg }
                     </Modal>
                     </React.Fragment>)}
                     

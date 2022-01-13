@@ -14,6 +14,8 @@ const Modal = (props) => {
 
     const handleClose = () =>{
         setOpenModal(false)
+        window.location.reload(false);
+
     }
 
     const classes = useStyles();

@@ -25,10 +25,9 @@ function AddCategories(props) {
         handleInputChange
     } = UseForm(initialValues)
 
-    const submitHandler = (e) => {
-        e.preventDefault();
+    const submitHandler = () => {
         dispatch(addCategories(values))
-        props.setOpenModal(false)
+        // props.setOpenModal(false)
     }
     
 
