@@ -3,13 +3,14 @@ import React from 'react'
 import { Route, Switch} from 'react-router-dom'
 
 import Dashboard from '../pages/Dashboard'
-import Users from '../pages/Users'
-import EditUsers from '../pages/EditUsers'
+import Users from '../pages/Users/Users'
+import EditUsers from '../pages/Users/EditUsers'
 import Products from '../pages/Products/Products'
 import Categories from '../pages/Categories/Categories'
 import Client from '../pages/Client/Client'
 import EditCategorie from '../pages/Categories/EditCategorie'
 import EditProduct from '../pages/Products/EditProduct';
+import EditClient from '../pages/Client/EditClient'
 
 const Routes = () => {
     return (
@@ -22,6 +23,7 @@ const Routes = () => {
             <Route exact path='/categories' component={Categories} />
             <Route exact path='/editcategory/:id' component={EditCategorie} />
             <Route exact path='/client' component={Client} />
+            <Route exact path='/editclient/:id' component={EditClient} />
         </Switch>
     )
 }

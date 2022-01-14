@@ -18,8 +18,6 @@ import categoryReducer from '../../redux/reducers/categoryReducer';
 
 const Categories = () => {
 
-    
-  
     const [openModal,setOpenModal] = useState(false);
     const [usersEdit,setUsersEdit] = useState(null);
 
@@ -51,12 +49,12 @@ const renderBody = (item, index) => (
       <td>{index}</td>
       <td>{item.name}</td>
       <td>{item.description}</td>
-      <td>
+      <td><Link to={`/editcategory/${item._id}`} rel="noopener noreferrer" >
           <IconButton aria-label='edit'>
-              <Link to={`/editcategory/${item._id}`} rel="noopener noreferrer" ><EditIcon/></Link>
+              <EditIcon/>
           </IconButton>
+          </Link>
           <IconButton onClick={  () => {if(window.confirm('Delete the item?')){ dispatch(deleteCategory(item._id))};}} aria-label='delete'>
-        
               <DeleteIcon />
           </IconButton>
       </td>
@@ -82,7 +80,7 @@ const renderBody = (item, index) => (
                             <div className="card">
                                 <div className="card__body">
                                     <Table
-                                        limit='10'
+                                        limit='5'
                                         headData={ProductsTableHead}
                                         renderHead={(item, index) => renderHead(item, index)}
                                         bodyData={categories}

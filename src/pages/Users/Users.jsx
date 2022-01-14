@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react'
-import Table from '../components/table/Table'
+import Table from '../../components/table/Table'
 // import customerList from '../assets/JsonData/customers-list.json'
 
 import axios from 'axios';
-import Loading from '../components/loading/loading';
-import Modal from '../components/Modal/Modal'
-import Addusersform from '../components/AddUser/Addusersform';
+import Loading from '../../components/loading/loading';
+import Modal from '../../components/Modal/Modal'
+import Addusersform from '../../components/AddUser/Addusersform';
 import './Users.css'
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton'

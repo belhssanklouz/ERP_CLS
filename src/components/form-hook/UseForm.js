@@ -36,7 +36,7 @@ export function Form(props) {
 
 
     return (
-        <form className={classes.root}>
+        <form onSubmit={props.onSubmit} className={classes.root}>
             {props.children}
         </form>
     )

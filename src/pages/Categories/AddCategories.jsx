@@ -25,22 +25,23 @@ function AddCategories(props) {
         handleInputChange
     } = UseForm(initialValues)
 
-    const submitHandler = () => {
+    const submitHandler = (e) => {
+        e.preventDefault();
         dispatch(addCategories(values))
         // props.setOpenModal(false)
     }
     
 
     return (
-        <Form>
+        <Form onSubmit={submitHandler}>
         <Grid container>
             <Grid item xs={12}>
-                <Input name='name' label='Name' value={values.name} onChange={handleInputChange} />
-                <Input name='description' label='Description' value={values.email} onChange={handleInputChange} type='text'/>
+                <Input name='name' label='Name' value={values.name} onChange={handleInputChange} required/>
+                <Input name='description' label='Description' value={values.email} onChange={handleInputChange} type='text' />
             </Grid>
                 
             </Grid>
-            <Button variant="contained" onClick={submitHandler} >Submit</Button>
+            <Button variant="contained" type='submit'>Submit</Button>
         </Form> 
     )
 }

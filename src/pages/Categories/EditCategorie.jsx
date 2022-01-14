@@ -16,7 +16,6 @@ import * as yup from "yup";
 import TextField from '@mui/material/TextField';
 import {browserHistory} from 'react-router';
 import { Alert } from "@mui/material";
-import { Fade } from "@mui/material";
 
 
 const EditCategorie = (props) => {

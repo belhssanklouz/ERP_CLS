@@ -18,10 +18,12 @@ import {deleteProduct, getAllProducts,getAllCategorys} from '../../redux/actions
 const Products = () => {
 
 
-    const productss = useSelector(state => state.ProductReducer.products) || [];
+   const productss = useSelector(state => state.ProductReducer.products) || [];
    const loading = useSelector(state => state.ProductReducer.loading) ;
    const categories = useSelector(state => state.categoryReducer.categories)|| [];
    const error = useSelector(state => state.ProductReducer.error)
+   const responseAdd = useSelector(state => state.ProductReducer.responseAdd)
+
 
    const dispatch = useDispatch()
 
@@ -59,10 +61,11 @@ const renderBody = (item, index) => (
       <td>{item.description}</td>
       <td>{item.price}</td>
       <td>{categories.filter((el)=>el._id == item.categories).map(el=>el.name)}</td>
-      <td>
+      <td><Link to={`/editproduct/${item._id}`} >
           <IconButton aria-label='edit'>
-              <Link to={`/editproduct/${item._id}`} ><EditIcon/></Link>
+              <EditIcon/>
           </IconButton>
+          </Link>
           <IconButton onClick={() => {if(window.confirm('Delete the item?')){ dispatch(deleteProduct(item._id))};}} aria-label='delete'>
               <DeleteIcon />
           </IconButton>
@@ -85,7 +88,7 @@ const renderBody = (item, index) => (
                                 <div className="card">
                                     <div className="card__body">
                                         <Table
-                                            limit='10'
+                                            limit='5'
                                             headData={ProductsTableHead}
                                             renderHead={(item, index) => renderHead(item, index)}
                                             bodyData={productss}
@@ -100,8 +103,8 @@ const renderBody = (item, index) => (
                         setOpenModal={setOpenModal}
                         title='Add new Product'>
                            
-                            <AddNewProduct
-                            setOpenModal={setOpenModal} verify={error}/>
+                            {!responseAdd ?<AddNewProduct
+                            setOpenModal={setOpenModal} /> : responseAdd.msg}
                         </Modal>
                         </React.Fragment>)}
                         

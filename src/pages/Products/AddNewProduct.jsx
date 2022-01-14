@@ -12,6 +12,7 @@ import {addProducts} from '../../redux/actions';
 const initialValues={
     id:0,
     name:'',
+    description:'',
     Price:0,
     Categories: ''
 }
@@ -32,38 +33,40 @@ const AddNewProduct = (props) => {
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(addProducts(values))
-        if(props.verify){
-            alert(props.verify.msg)
-        }
-        props.setOpenModal(false)
+        // if(props.verify){
+        //     alert(props.verify.msg)
+        // }
+        // props.setOpenModal(false)
     }
     
 
     return (
-        <Form>
+        <Form onSubmit={submitHandler}>
             <Grid container>
                 <Grid item xs={12}>
-                    <Input name='name' label='Name' value={values.name} onChange={handleInputChange} />
+                    <Input name='name' label='Name' value={values.name} onChange={handleInputChange} required />
+                    <Input name='description' label='description' value={values.description} onChange={handleInputChange}  />
                     <Input name='price' label='Price' value={values.email} onChange={handleInputChange} type='number'/>
-                    <InputLabel id="demo-simple-select-label">Categories</InputLabel>
+                    <FormControl required sx={{m:1,minWidth:120}}>
+                    <InputLabel id="demo-simple-select-required-label">Categories</InputLabel>
                     <Select
+                    required
                     name='categories'
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        labelId="demo-simple-select-required-label"
+                        id="demo-simple-select-required"
                         label="Categories"
-                        defaultValue={categories[0]._id}
-                        label={categories[0].name}
                         onChange={handleInputChange}
                     >
-
+                    
                         {categories.map((el)=>
                         
                         <MenuItem value={el._id}>{el.name}</MenuItem>)}
                     
-                    </Select>        
+                    </Select>     
+                    </FormControl>   
                 </Grid>        
             </Grid>
-            <Button variant="contained" onClick={submitHandler} >Submit</Button>
+            <Button variant="contained" type='submit'>Submit</Button>
     </Form> 
     )
 }

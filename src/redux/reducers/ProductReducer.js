@@ -5,7 +5,10 @@ import {ADD_PRODUCT,ADD_PRODUCT_SUCC,GET_ALL_PRODUCT,GET_ALL_PRODUCT_SUCC,GET_AL
 const initialState ={
     loading:false,
     error:null,
-    products:null
+    products:null,
+    responseAdd:null,
+    responseEdit:null
+
 }
 
 const ProductReducer = (state=initialState,{type,payload}) =>{
@@ -17,19 +20,30 @@ const ProductReducer = (state=initialState,{type,payload}) =>{
                 loading:true
             }
         case GET_ALL_PRODUCT_SUCC:
-        case EDIT_PRODUCT_SUCC:
             return{
                 ...state,
                 loading:false,
                 products:payload
             }
+        case EDIT_PRODUCT_SUCC:
+            return{
+                ...state,
+                loading:false,
+                responseEdit:payload
+            }
         case GET_ALL_PRODUCT_FAIL:
-        case EDIT_PRODUCT_FAIL:
             return{
                 ...state,
                 loading:false,
                 product:null,
                 error:payload
+            }
+        case EDIT_PRODUCT_FAIL:
+            return{
+                ...state,
+                loading:false,
+                product:null,
+                responseEdit:payload
             }
             case ADD_PRODUCT:
                 return{
@@ -40,13 +54,13 @@ const ProductReducer = (state=initialState,{type,payload}) =>{
                 return{
                     ...state,
                     loading:false,
-                    products:payload
+                    responseAdd:payload
                 }
             case ADD_PRODUCT_FAIL:
                 return{
                     ...state,
                     loading:false,
-                    error:payload
+                    responseAdd:payload
                 }
             case DELETE_PRODUCT:
                 return{

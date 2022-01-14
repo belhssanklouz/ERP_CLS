@@ -1,9 +1,9 @@
 import React,{useEffect} from 'react'
 import {FormControl, FormControlLabel, FormLabel, Grid , RadioGroup, TextField,Radio} from '@mui/material'
-import Input from '../components/FormElements/Input'
-import { UseForm,Form } from '../components/form-hook/UseForm'
+import Input from '../../components/FormElements/Input'
+import { UseForm,Form } from '../../components/form-hook/UseForm'
 import {useDispatch,useSelector}from 'react-redux';
-import { getAllUseres } from '../redux/actions';
+import { getAllUseres } from '../../redux/actions';
 import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
 

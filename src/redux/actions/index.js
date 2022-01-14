@@ -4,8 +4,12 @@ import {GET_ALL_USERS,GET_ALL_USERS_SUCC,ADD_USER_SUCC,ADD_USER,
     DELETE_PRODUCT,DELETE_PRODUCT_SUCC,DELETE_PRODUCT_FAIL,
     ADD_CATEGORY,ADD_CATEGORY_SUCC,ADD_CATEGORY_FAIL,GET_ALL_CATEGORY,GET_ALL_CATEGORY_SUCC,
     DELETE_CATEGORY, DELETE_CATEGORY_SUCC,DELETE_CATEGORY_FAIL,
+
     GET_ALL_CLIENT,GET_ALL_CLIENT_SUCC,GET_ALL_CLIENT_FAIL,
     ADD_CLIENT,ADD_CLIENT_SUCC,ADD_CLIENT_FAIL,
+    EDIT_CLIENT,EDIT_CLIENT_SUCC,EDIT_CLIENT_FAIL,
+    DELETE_CLIENT,DELETE_CLIENT_SUCC,DELETE_CLIENT_FAIL,
+
     EDIT_CATEGORY,EDIT_CATEGORY_SUCC,EDIT_CATEGORY_FAIL,
      EDIT_PRODUCT,EDIT_PRODUCT_SUCC,EDIT_PRODUCT_FAIL, GET_ALL_CATEGORY_BI, GET_ALL_CATEGORY_SUCC_BI, GET_ALL_CATEGORY_FAIL, GET_ALL_CATEGORY_FAIL_BI} from '../types/actionsTyps'
 
@@ -48,7 +52,7 @@ export const addProducts = (newProduct) => async (dispatch) =>{
         const addProducts = await axios.post('http://192.168.1.219:8888/api/v1/product/addproduct',newProduct);
         const allProducts = await axios("http://192.168.1.219:8888/api/v1/product/getallproduct");
 
-        dispatch({type:ADD_PRODUCT_SUCC,payload:allProducts.data})
+        dispatch({type:ADD_PRODUCT_SUCC,payload:addProducts.data})
         
     } catch (error) {
         await dispatch ({type:ADD_PRODUCT_FAIL,payload:error.response.data})
@@ -111,7 +115,6 @@ export const addCategories = (newCategory) => async (dispatch) =>{
     await dispatch ({type:ADD_CATEGORY})
     try {
         const addCategory = await axios.post('http://192.168.1.219:8888/api/v1/category/addcategory',newCategory);
-        //const allCategorys = await axios("http://192.168.1.219:8888/api/v1/category/getallcategory");
         dispatch({type:ADD_CATEGORY_SUCC,payload:addCategory.data})
         
     } catch (error) {
@@ -150,7 +153,7 @@ export const deleteCategory = (idCat) => async(dispatch)=>{
 export const getAllClient=()=>async(dispatch)=>{
     await dispatch({type:GET_ALL_CLIENT})
     try {
-        const allData = await axios('http://192.168.1.219:8888/api/v1/client/getallclient')
+        const allData = await axios('https://cls-erp.herokuapp.com/api/v1/client/getallclient')
         dispatch({type:GET_ALL_CLIENT_SUCC,payload:allData.data})
     } catch (error) {
         dispatch({type:GET_ALL_CLIENT_FAIL,payload:error.data})
@@ -161,14 +164,36 @@ export const getAllClient=()=>async(dispatch)=>{
 export const addClient = (newClient) => async (dispatch) =>{
     await dispatch ({type:ADD_CLIENT})
     try {
-        const addClient = await axios.post('http://192.168.1.219:8888/api/v1/client/addclient',newClient);
-        const allData = await axios('http://192.168.1.219:8888/api/v1/client/getallclient')
-        dispatch({type:ADD_CLIENT_SUCC,payload:allData.data})
+        const addClient = await axios.post('https://cls-erp.herokuapp.com/api/v1/client/addclient',newClient);
+        dispatch({type:ADD_CLIENT_SUCC,payload:addClient.data})
         
     } catch (error) {
         await dispatch ({type:ADD_CLIENT_FAIL,payload:error.response.data})
+    }
+}
 
-        console.log(error)
+export const editClients = (editClient) => async (dispatch) =>{
+    await dispatch ({type:EDIT_CLIENT})
+    try {
+        const editCat = await axios.patch(`https://cls-erp.herokuapp.com/api/v1/client/update/${editClient._id}`,{name:editClient.name,description:editClient.description});
+
+        dispatch({type:EDIT_CATEGORY_SUCC,payload:editCat.data})
+        
+    } catch (error) {
+        dispatch({type:EDIT_CATEGORY_FAIL,payload:error.response})
+    }
+}
+
+
+export const deleteClient = (idCli) => async(dispatch) => {
+    dispatch({type:DELETE_CLIENT})
+    try {
+        await axios.delete(`https://cls-erp.herokuapp.com/api/v1/client/delete/${idCli}`)
+        const allData = await axios('https://cls-erp.herokuapp.com/api/v1/client/getallclient')
+        dispatch({type:DELETE_CLIENT_SUCC,payload:allData.data})
+        
+    } catch (error) {
+        dispatch({type:DELETE_CLIENT_FAIL,payload:error.response.data})
     }
 }
 

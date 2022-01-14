@@ -15,7 +15,7 @@ const initialValues={
     name:'',
     raisonSocial:'',
     secteurActivite: '',
-    phoneNumber:0,
+    phoneNumber:'',
     adress:[{
         adressLine:"",
      city:'',
@@ -50,17 +50,13 @@ const [commentaire,setCommentaire]=useState('');
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(addClient({name,raisonSocial,secteurActivite,phoneNumber,commentaire,adress:{adressLine,city,zipCode}}))
-
-        if(props.verify){
-            alert(props.verify.msg)
-        }
-        props.setOpenModal(false)
+        // props.setOpenModal(false)
     }
     
     
 
     return (
-        <Form>
+        <Form onSubmit={submitHandler}>
         <Grid container center>
             <Grid item xs={12} full-maxWidth={1}>
                 <Input  name='name' label='name' onChange={(e)=>setName(e.target.value)} />
@@ -76,7 +72,7 @@ const [commentaire,setCommentaire]=useState('');
 
             </Grid>        
         </Grid>
-        <Button variant="contained" onClick={submitHandler} >Submit</Button>
+        <Button variant="contained" type='submit'>Submit</Button>
 </Form> 
     )
 }
