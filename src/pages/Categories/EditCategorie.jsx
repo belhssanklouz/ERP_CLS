@@ -14,7 +14,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import TextField from '@mui/material/TextField';
-import {browserHistory} from 'react-router'
+import {browserHistory} from 'react-router';
+import { Alert } from "@mui/material";
+import { Fade } from "@mui/material";
 
 
 const EditCategorie = (props) => {
@@ -53,24 +55,20 @@ const EditCategorie = (props) => {
       ) : (
           
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div style={{display:"flex",textAlign:"center",justifyContent:"start",alignItems:"center"}}>
-            <label style={{width:"300px"}}> Name</label>
-            <TextField defaultValue={catbyid.name} {...register("name")} style={{width:"600px"}} />
+            <TextField variant="filled" label="Name" defaultValue={catbyid.name} {...register("name")} style={{width:"600px"}} />
             <br />
             {errors.name &&  <p> {errors.name.message}</p>}
-          </div>
-          <div style={{display:"flex",textAlign:"center",justifyContent:"start",alignItems:"center", marginBottom: 10 }} >
-            <label style={{width:"300px"}}>description</label>
-            <TextField defaultValue={catbyid.description} {...register("description")} style={{width:"600px"}}/>
+            <TextField variant='filled' label="description" defaultValue={catbyid.description} {...register("description")} style={{width:"600px"}}/>
             {errors.description && <p>{errors.description.message}</p>}
-          </div>
+            <br/>
+            <br/>
 
-          <TextField type="submit" />
+          <Button variant="contained" type="submit">Submit</Button>
         </form>
         
       
       )}
-              {resedi.msg ? <><p style={{ margin:"30px" , color:"blue"}}>{resedi.msg}</p> <Button style={{ margin:"30px"}} variant="contained" onClick={ ()=> {window.location.href = '/categories'}}>retour</Button></> : null}
+              {resedi.msg ? <><Alert severity="success">{resedi.msg}</Alert> <Button style={{}} variant="contained" onClick={ ()=> {window.location.href = '/categories'}}>retour</Button></> : null}
 
       {/* )  } */}
     </>
