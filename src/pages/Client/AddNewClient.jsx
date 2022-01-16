@@ -13,6 +13,7 @@ import './AddNewClient.css'
 const initialValues={
     id:0,
     name:'',
+    email:'',
     raisonSocial:'',
     secteurActivite: '',
     phoneNumber:'',
@@ -21,9 +22,7 @@ const initialValues={
      city:'',
     ZipCodeCode:''
 }],
-   
     commentaire:''
-
 }
 
  const AddNewClient = (props) => {
@@ -37,6 +36,7 @@ const initialValues={
     } = UseForm(initialValues)
 
 const [name, setName] = useState("");
+const [email, setEmail] = useState('');
 const [adressLine,setAdressLine]=useState('');
 const [city,setCity]=useState('');
 const [zipCode,setZipCode]=useState('');
@@ -49,7 +49,7 @@ const [commentaire,setCommentaire]=useState('');
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(addClient({name,raisonSocial,secteurActivite,phoneNumber,commentaire,adress:{adressLine,city,zipCode}}))
+        dispatch(addClient({name,email,raisonSocial,secteurActivite,phoneNumber,commentaire,adress:{adressLine,city,zipCode}}))
         // props.setOpenModal(false)
     }
     
@@ -60,11 +60,12 @@ const [commentaire,setCommentaire]=useState('');
         <Grid container center>
             <Grid item xs={12} full-maxWidth={1}>
                 <Input  name='name' label='name' onChange={(e)=>setName(e.target.value)} />
+                <Input  name='email' label='email' onChange={(e)=>setEmail(e.target.value)} type='email'/>
                 <Input name='raisonSocial' label='Raison Social' value={values.raisonSocial} onChange={(e)=>setRaisonSocial(e.target.value)} type='text'/>
                 <Input name='secteurActivite' label="Secteur d'activité" value={values.secteurActivite} onChange={(e)=>setSecteurActivite(e.target.value)} type='text'/>
                 <Input name='phoneNumber' label="Tel" value={values.phoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)} type='number'/>
                 <Grid md={12} item className='flex'>
-                <Input   name='AdressLine' label='adresse' onChange={(e)=>setAdressLine(e.target.value)} type='text'/>
+                <Input  name='AdressLine' label='adresse' onChange={(e)=>setAdressLine(e.target.value)} type='text'/>
                 <Input name='city' label="City"  onChange={(e)=>setCity(e.target.value)} type='text'/>
                 <Input  name='zipCode' label="Code postal" onChange={(e)=>setZipCode(e.target.value)} type='Number'/>
                 </Grid>

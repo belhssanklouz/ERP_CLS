@@ -36,6 +36,7 @@ function Client() {
   const ClientTableHead = [
     'N°',
     'name',
+    'E-mail',
     'Raison social',
     'Secteur d\'Activité',
     'Address',
@@ -50,6 +51,7 @@ function Client() {
     <tr key={index}>
         <td>{index}</td>
         <td>{item.name}</td>
+        <td>{item.email}</td>
         <td>{item.raisonSocial}</td>
         <td>{item.secteurActivite}</td>
         <td>{item.adress.map((el)=><p>{ el.adressLine} ,{ el.city} ,{el.zipCode} </p> )}</td>

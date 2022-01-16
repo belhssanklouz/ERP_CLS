@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import {FormControl, FormControlLabel, FormLabel, Grid , Select,MenuItem} from '@mui/material'
 import {getAllClient,editClients} from "../../redux/actions";
@@ -18,8 +18,14 @@ const EditClient = () => {
     const idd =useParams();
     const dispatch=useDispatch();
 
+    const clients = useSelector(state => state.clientReducer.client) || [];
+    const responseEdit = useSelector(state => state.clientReducer.responseEdit) || '';
+    const identifiedClient = clients.filter(el=> el._id===idd.id) || [];
+
+  
+
     const initialValues={
-        _id:idd,
+        _id:idd.id,
         name:'',
         phoneNumber:'',
         email:'',
@@ -31,53 +37,119 @@ const EditClient = () => {
         commentaire:''
     }
 
+
+    console.log(initialValues)
+
     const {
         values,
         setValues,
         handleInputChange
     } = UseForm(initialValues)
 
-    
+useEffect(()=>{
+    for (let input of identifiedClient ){
+        setValues({
+        _id:idd.id,
+        name : input.name,
+        phoneNumber : input.phoneNumber,
+        email : input.email,
+        adressLine : input.adress[0].adressLine,
+        city:input.adress[0].city,
+        zipCode:input.adress[0].zipCode,
+        raisonSocial : input.raisonSocial,
+        secteurActivite : input.secteurActivite,
+        commentaire : input.commentaire})
+}
+},[clients])
+
+   
+
+
+    console.log(values)
+
+    // const adressHandler = async(adress) => {
+    //     adress= await identifiedClient[0].name;
+    //     console.log(adress)
+    //     const city = await identifiedClient[0].adress[0].city;
+    //     const zipCode = await identifiedClient[0].adress[0].zipCode;
+    // }
+
+
+    const [name, setName] = useState(identifiedClient.name);
+    const [email, setEmail] = useState(identifiedClient.email)
+    const [adressLine,setAdressLine]=useState('');
+    const [city,setCity]=useState('');
+    const [zipCode,setZipCode]=useState('');
+    const [raisonSocial,setRaisonSocial]=useState(identifiedClient.raisonSocial);
+    const [secteurActivite,setSecteurActivite]=useState(identifiedClient.secteurActivite);
+    const [phoneNumber,setPhoneNumber]=useState(identifiedClient.phoneNumber);
+    const [commentaire,setCommentaire]=useState(identifiedClient.commentaire);
+
+useEffect(() => {
+    dispatch(getAllClient());
+}, [dispatch])
+
+    const id = idd.id;
+
     const submitHandler = (e) => {
         e.preventDefault();
+        // dispatch(editClients({id,name,email,adress:{adressLine,city,zipCode},raisonSocial,secteurActivite,phoneNumber,commentaire}))
         dispatch(editClients(values))
     }
-
-    useEffect(() => {
-        
-        dispatch(getAllClient());
-    }, [dispatch])
-
-    const clients = useSelector(state => state.clientReducer.client) || [];
-    const responseEdit = useSelector(state => state.clientReducer.responseEdit) || '';
-    const identifiedClient = clients.filter((el)=>{return el._id===idd});
-    console.log(identifiedClient)
 
 
     return (
         <>
-            <Form onSubmit={submitHandler}>
+            <h1>Edit Client</h1>
+    <Form onSubmit={submitHandler}>
 
         <Grid container>
         <Grid item xs={12}>
-            <Input name='_id' onChange={handleInputChange} type='hidden'/>
-            <Input name='name' label='Name' onChange={handleInputChange} required />
-            <Input name='raisonSocial' label='Raison Social'  onChange={handleInputChange} /> 
-            <Input name='secteurActivite' label="Secteur D'activité"  onChange={handleInputChange} type='text' />
-            <Input name='email' label='E-Mail'  onChange={handleInputChange} type='text' />   
-            <Input name='phoneNumber' label='Phone Number'  onChange={handleInputChange} type='text' />   
-            <Input name='adressLine' label='Adresse' onChange={handleInputChange} type='text' />   
-            <Input name='city' label='City' onChange={handleInputChange} type='text' />   
-            <Input name='zipCode' label='Zip Code' onChange={handleInputChange} type='text' />   
-            <Input name='commentaire' label='Commentaire' onChange={handleInputChange} type='text' />   
+            {identifiedClient.map((el)=>
+            <div>
+                {/* <span style={{display:"none"}}>
+                    {initialValues.name = el.name}
+                    {initialValues.email = el.email} 
+                    {initialValues.adress.adressLine = el.adress[0].adressLine}
+                    {console.log(initialValues.adress.adressLine)}    
+                    {initialValues.adress.city = el.adress[0].city}
+                    {initialValues.adress.zipCode = el.adress[0].zipCode}
+                    {initialValues.raisonSocial = el.raisonSocial}
+                    {initialValues.secteurActivite = el.secteurActivite}
+                    {initialValues.phoneNumber = el.phoneNumber}
+                    {initialValues.commentaire = el.commentaire}
+                </span> */}
+            {/* <Input name='_id' onChange={handleInputChange} value={el._id} type='hidden'/>
+            <Input name='name' label='Name' value={el.name} onChange={(e)=>setName(e.target.value)} required />
+            <Input name='raisonSocial' label='Raison Social' value={el.raisonSocial} onChange={(e)=>setRaisonSocial(e.target.value)} /> 
+            <Input name='secteurActivite' label="Secteur D'activité" value={el.secteurActivite} onChange={(e)=>setSecteurActivite(e.target.value)} type='text' />
+            <Input name='email' label='E-Mail' value={el.email} onChange={(e)=>setEmail(e.target.value)} type='text' />   
+            <Input name='phoneNumber' label='Phone Number' value={el.phoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)} type='text' />   
+            <Input name='adressLine' label='Adresse' value={el.adress[0].adressLine} onChange={(e)=>setAdressLine(e.target.value)} type='text' />   
+            <Input name='city' label='City' value={el.adress[0].city} onChange={(e)=>setCity(e.target.value)} type='text' />   
+            <Input name='zipCode' label='Zip Code' value={el.adress[0].zipCode} onChange={(e)=>setZipCode(e.target.value)} type='text' />   
+            <Input name='commentaire' label='Commentaire' value={el.commentaire} onChange={(e)=>setCommentaire(e.target.value)} type='text' />    */}
+
+            <Input name='_id' onChange={handleInputChange} value={el._id} type='hidden'/>
+            <Input name='name' label='Name' value={el.name} onChange={handleInputChange} required />
+            <Input name='raisonSocial' label='Raison Social' value={el.raisonSocial} onChange={handleInputChange} /> 
+            <Input name='secteurActivite' label="Secteur D'activité" value={el.secteurActivite} onChange={handleInputChange} type='text' />
+            <Input name='email' label='E-Mail' value={el.email} onChange={handleInputChange} type='text' />   
+            <Input name='phoneNumber' label='Phone Number' value={el.phoneNumber} onChange={handleInputChange} type='text' />   
+            <Input name='adressLine' label='Adresse' value={el.adress[0].adressLine} onChange={handleInputChange} type='text' />   
+            <Input name='city' label='City' value={el.adress[0].city} onChange={handleInputChange} type='text' />   
+            <Input name='zipCode' label='Zip Code' value={el.adress[0].zipCode} onChange={handleInputChange} type='text' />   
+            <Input name='commentaire' label='Commentaire' value={el.commentaire} onChange={handleInputChange} type='text' />   
+            </div>
+            )}
       
         </Grid>
         </Grid>
         <Button variant="contained" type='submit'>Submit</Button>
             </Form>
-            {responseEdit ? <><Alert severity="success">{responseEdit.msg}</Alert>
+            {responseEdit.msg==='Client updated successfully hhhh' ? <><Alert severity="success">{responseEdit.msg}</Alert>
             <Button style={{}} variant="contained" onClick={ ()=> {window.location.href = '/products'}}>retour</Button>
-            </>:null}
+            </>:responseEdit.msg==='Client update Failed' ? <Alert severity="error">{responseEdit.msg}</Alert> : null}
             
         </>
     )

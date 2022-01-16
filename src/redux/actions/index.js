@@ -175,12 +175,13 @@ export const addClient = (newClient) => async (dispatch) =>{
 export const editClients = (editClient) => async (dispatch) =>{
     await dispatch ({type:EDIT_CLIENT})
     try {
-        const editCat = await axios.patch(`https://cls-erp.herokuapp.com/api/v1/client/update/${editClient._id}`,{name:editClient.name,description:editClient.description});
+        console.log(editClient)
+        const editCat = await axios.patch(`https://cls-erp.herokuapp.com/api/v1/client/update/${editClient._id}`,{name:editClient.name,email:editClient.email,phoneNumber:editClient.phoneNumber,adress:{adressLine:editClient.adressLine,city:editClient.city,zipCode:editClient.zipCode},raisonSocial:editClient.raisonSocial,secteurActivite:editClient.secteurActivite,commentaire:editClient.commentaire});
 
-        dispatch({type:EDIT_CATEGORY_SUCC,payload:editCat.data})
+        dispatch({type:EDIT_CLIENT_SUCC,payload:editCat.data})
         
     } catch (error) {
-        dispatch({type:EDIT_CATEGORY_FAIL,payload:error.response})
+        dispatch({type:EDIT_CLIENT_FAIL,payload:error.response.data})
     }
 }
 
@@ -193,7 +194,7 @@ export const deleteClient = (idCli) => async(dispatch) => {
         dispatch({type:DELETE_CLIENT_SUCC,payload:allData.data})
         
     } catch (error) {
-        dispatch({type:DELETE_CLIENT_FAIL,payload:error.response.data})
+        dispatch({type:DELETE_CLIENT_FAIL,payload:error.response})
     }
 }
 
