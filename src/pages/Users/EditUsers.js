@@ -3,18 +3,11 @@ import {FormControl, FormControlLabel, FormLabel, Grid , RadioGroup, TextField,R
 import Input from '../../components/FormElements/Input'
 import { UseForm,Form } from '../../components/form-hook/UseForm'
 import {useDispatch,useSelector}from 'react-redux';
-import { getAllUseres } from '../../redux/actions';
+import { getAllUsers,editUsers } from '../../redux/actions';
 import Button from '@mui/material/Button';
 import { useParams } from 'react-router-dom';
+import { Alert } from "@mui/material";
 
-const initialValues={
-    id:0,
-    name:'',
-    email:'',
-    phoneNumber: '',
-    role: 'user',
-
-}
 
 const EditUsers = (props) => {
 
@@ -22,30 +15,52 @@ const EditUsers = (props) => {
     const dispatch=useDispatch();
     useEffect(() => {
         
-        dispatch(getAllUseres())
+        dispatch(getAllUsers())
     }, [dispatch])
 
+    const initialValues={
+        id:iddd.id,
+        name:'',
+        email:'',
+        phoneNumber: '',
+        role: 'user',
+    
+    }
+
     const alluseressssss = useSelector(state => state.userReducer.users) || [];
+    const responseEdit = useSelector (state=>state.userReducer.responseEdit) || null;
+    console.log(alluseressssss)
     const {
         values,
         setValues,
         handleInputChange
     } = UseForm(initialValues)
 
+    useEffect(()=>{
+        for (let user of alluseressssss){
+            setValues({
+                id:iddd.id,
+                name:user.name,
+                email:user.email,
+                phoneNumber:user.phoneNumber,
+                role:user.role})
+                console.log(user.phoneNumber)
+        }
+    },[alluseressssss])
+
     const submitHandler = (e) => {
         e.preventDefault();
-        console.log(values)
-        props.setOpenModal(false)
+        dispatch(editUsers(values));
     }
 
     return (
         <>
         {!alluseressssss ? <h1>wait</h1> : alluseressssss.filter((el )=> el._id == iddd.id).map((el )=>
-        <Form>
+        <Form onSubmit={submitHandler}>
         <Grid container>
         <Grid item xs={6}>
 
-            <Input name='name' label='Name' value={el.name} onChange={handleInputChange} />
+            <Input name='name' label='Name' value={el.name} onChange={handleInputChange} required />
             <Input name='email' label='E-mail' value={el.email} onChange={handleInputChange} />
             <Input style={{backgroundColor:'red !important;' }} name='phoneNumber' label='Phone' value={el.phoneNumber} type='number' onChange={handleInputChange} />
           
@@ -58,7 +73,9 @@ const EditUsers = (props) => {
                     <RadioGroup row
                     name='role'
                     defaultValue={el.role}
-                    onChange={handleInputChange} >
+                    onChange={handleInputChange}
+                    value={values.role}
+                    >
                         <FormControlLabel value='admin' control ={<Radio />} label='Admin'/>
                         <FormControlLabel value='user' control ={<Radio />} label='User'/>
                     </RadioGroup>
@@ -66,10 +83,13 @@ const EditUsers = (props) => {
             </Grid>
           
         </Grid>
-        <Button variant="contained" onClick={submitHandler} >Submit</Button>
+        <Button variant="contained" type='submit'>Submit</Button>
         </Form> 
-
         )  }
+         {responseEdit==='User updated successfully'? <><Alert severity="success">{responseEdit}</Alert>
+            <Button style={{}} variant="contained" onClick={ ()=> {window.location.href = '/users'}}>retour</Button>
+            </>:responseEdit==='User updated Failed'? <Alert severity="error">{responseEdit}</Alert> : null}
+
         </>
     )
 }

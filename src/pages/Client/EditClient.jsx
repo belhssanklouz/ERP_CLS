@@ -62,29 +62,6 @@ useEffect(()=>{
 }
 },[clients])
 
-   
-
-
-    console.log(values)
-
-    // const adressHandler = async(adress) => {
-    //     adress= await identifiedClient[0].name;
-    //     console.log(adress)
-    //     const city = await identifiedClient[0].adress[0].city;
-    //     const zipCode = await identifiedClient[0].adress[0].zipCode;
-    // }
-
-
-    const [name, setName] = useState(identifiedClient.name);
-    const [email, setEmail] = useState(identifiedClient.email)
-    const [adressLine,setAdressLine]=useState('');
-    const [city,setCity]=useState('');
-    const [zipCode,setZipCode]=useState('');
-    const [raisonSocial,setRaisonSocial]=useState(identifiedClient.raisonSocial);
-    const [secteurActivite,setSecteurActivite]=useState(identifiedClient.secteurActivite);
-    const [phoneNumber,setPhoneNumber]=useState(identifiedClient.phoneNumber);
-    const [commentaire,setCommentaire]=useState(identifiedClient.commentaire);
-
 useEffect(() => {
     dispatch(getAllClient());
 }, [dispatch])
@@ -107,29 +84,6 @@ useEffect(() => {
         <Grid item xs={12}>
             {identifiedClient.map((el)=>
             <div>
-                {/* <span style={{display:"none"}}>
-                    {initialValues.name = el.name}
-                    {initialValues.email = el.email} 
-                    {initialValues.adress.adressLine = el.adress[0].adressLine}
-                    {console.log(initialValues.adress.adressLine)}    
-                    {initialValues.adress.city = el.adress[0].city}
-                    {initialValues.adress.zipCode = el.adress[0].zipCode}
-                    {initialValues.raisonSocial = el.raisonSocial}
-                    {initialValues.secteurActivite = el.secteurActivite}
-                    {initialValues.phoneNumber = el.phoneNumber}
-                    {initialValues.commentaire = el.commentaire}
-                </span> */}
-            {/* <Input name='_id' onChange={handleInputChange} value={el._id} type='hidden'/>
-            <Input name='name' label='Name' value={el.name} onChange={(e)=>setName(e.target.value)} required />
-            <Input name='raisonSocial' label='Raison Social' value={el.raisonSocial} onChange={(e)=>setRaisonSocial(e.target.value)} /> 
-            <Input name='secteurActivite' label="Secteur D'activité" value={el.secteurActivite} onChange={(e)=>setSecteurActivite(e.target.value)} type='text' />
-            <Input name='email' label='E-Mail' value={el.email} onChange={(e)=>setEmail(e.target.value)} type='text' />   
-            <Input name='phoneNumber' label='Phone Number' value={el.phoneNumber} onChange={(e)=>setPhoneNumber(e.target.value)} type='text' />   
-            <Input name='adressLine' label='Adresse' value={el.adress[0].adressLine} onChange={(e)=>setAdressLine(e.target.value)} type='text' />   
-            <Input name='city' label='City' value={el.adress[0].city} onChange={(e)=>setCity(e.target.value)} type='text' />   
-            <Input name='zipCode' label='Zip Code' value={el.adress[0].zipCode} onChange={(e)=>setZipCode(e.target.value)} type='text' />   
-            <Input name='commentaire' label='Commentaire' value={el.commentaire} onChange={(e)=>setCommentaire(e.target.value)} type='text' />    */}
-
             <Input name='_id' onChange={handleInputChange} value={el._id} type='hidden'/>
             <Input name='name' label='Name' value={el.name} onChange={handleInputChange} required />
             <Input name='raisonSocial' label='Raison Social' value={el.raisonSocial} onChange={handleInputChange} /> 
@@ -147,8 +101,8 @@ useEffect(() => {
         </Grid>
         <Button variant="contained" type='submit'>Submit</Button>
             </Form>
-            {responseEdit.msg==='Client updated successfully hhhh' ? <><Alert severity="success">{responseEdit.msg}</Alert>
-            <Button style={{}} variant="contained" onClick={ ()=> {window.location.href = '/products'}}>retour</Button>
+            {responseEdit.msg==='Client updated successfully' ? <><Alert severity="success">{responseEdit.msg}</Alert>
+            <Button style={{}} variant="contained" onClick={ ()=> {window.location.href = '/client'}}>retour</Button>
             </>:responseEdit.msg==='Client update Failed' ? <Alert severity="error">{responseEdit.msg}</Alert> : null}
             
         </>

@@ -6,6 +6,14 @@ export const ADD_USER = 'ADD_USER';
 export const ADD_USER_SUCC = 'ADD_USER_SUCC';
 export const ADD_USER_FAIL = 'ADD_USER_FAIL';
 
+export const EDIT_USER = 'EDIT_USER';
+export const EDIT_USER_SUCC = 'EDIT_USER_SUCC';
+export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
+
+export const DELETE_USER = 'DELETE_USER';
+export const DELETE_USER_SUCC = 'DELETE_USER_SUCC';
+export const DELETE_USER_FAIL = 'DELETE_USER_FAIL';
+
 export const GET_ALL_PRODUCT = 'GET_ALL_PRODUCT';
 export const GET_ALL_PRODUCT_SUCC = 'GET_ALL_PRODUCT_SUCC';
 export const GET_ALL_PRODUCT_FAIL = 'GET_ALL_PRODUCT_FAIL';

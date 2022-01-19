@@ -19,8 +19,6 @@ import categoryReducer from '../../redux/reducers/categoryReducer';
 const Categories = () => {
 
     const [openModal,setOpenModal] = useState(false);
-    const [usersEdit,setUsersEdit] = useState(null);
-
 
    // fetch with redux
    const categories = useSelector(state => state.categoryReducer.categories) || [];
