@@ -4,7 +4,7 @@ import userReducer from './userReducer';
 import ProductReducer from "./ProductReducer";
 import categoryReducer from './categoryReducer';
 import clientReducer from './ClientReducer';
-
-const rootReducer = combineReducers({ThemeReducer,userReducer,ProductReducer,categoryReducer,clientReducer})
+import companyReducer from './companyReducer';
+const rootReducer = combineReducers({ThemeReducer,userReducer,ProductReducer,categoryReducer,clientReducer,companyReducer})
 
 export default rootReducer

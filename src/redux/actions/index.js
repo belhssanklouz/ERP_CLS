@@ -17,7 +17,7 @@ import {GET_ALL_USERS,GET_ALL_USERS_SUCC,
 
         EDIT_CATEGORY,EDIT_CATEGORY_SUCC,EDIT_CATEGORY_FAIL,
         EDIT_PRODUCT,EDIT_PRODUCT_SUCC,EDIT_PRODUCT_FAIL,
-         GET_ALL_CATEGORY_BI, GET_ALL_CATEGORY_SUCC_BI, GET_ALL_CATEGORY_FAIL, GET_ALL_CATEGORY_FAIL_BI} from '../types/actionsTyps'
+         GET_ALL_CATEGORY_BI, GET_ALL_CATEGORY_SUCC_BI, GET_ALL_CATEGORY_FAIL, GET_ALL_CATEGORY_FAIL_BI, GET_ALL_COMPANY, GET_ALL_COMPANY_SUCC, GET_ALL_COMPANY_FAIL, EDIT_COMPANY, EDIT_COMPANY_SUCC, EDIT_COMPANY_FAIL} from '../types/actionsTyps'
 
 
 export const getAllUsers=()=>async(dispatch)=>{
@@ -231,3 +231,25 @@ export const deleteClient = (idCli) => async(dispatch) => {
     }
 }
 
+// Company
+
+export const getAllCompanies = () => async(dispatch) =>{
+    await dispatch({type:GET_ALL_COMPANY})
+    try {
+        const allCompanies = await axios('https://cls-erp.herokuapp.com/api/v1/company/getallcompany');
+        dispatch({type:GET_ALL_COMPANY_SUCC,payload:allCompanies.data})
+        dispatch({type:'Companies_Succ',payload:allCompanies.data})
+    } catch (error) {
+        dispatch({type:GET_ALL_COMPANY_FAIL,payload:error.response})
+    }
+}
+
+export const editCompany = (edited) => async(dispatch) => {
+    await dispatch({type:EDIT_COMPANY})
+    try {
+        const edit = await axios.patch(`http://localhost:21236/api/v1/company/update/${edited.id}`,edited);
+        dispatch({type:EDIT_COMPANY_SUCC,payload:edit.data})
+    } catch (error) {
+        dispatch({type:EDIT_COMPANY_FAIL,payload:error.response})
+    }
+} 

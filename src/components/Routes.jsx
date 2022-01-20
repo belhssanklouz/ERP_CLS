@@ -10,7 +10,8 @@ import Categories from '../pages/Categories/Categories'
 import Client from '../pages/Client/Client'
 import EditCategorie from '../pages/Categories/EditCategorie'
 import EditProduct from '../pages/Products/EditProduct';
-import EditClient from '../pages/Client/EditClient'
+import EditClient from '../pages/Client/EditClient';
+import Configuration from '../pages/Configuration/configuration';
 
 const Routes = () => {
     return (
@@ -24,6 +25,7 @@ const Routes = () => {
             <Route exact path='/editcategory/:id' component={EditCategorie} />
             <Route exact path='/client' component={Client} />
             <Route exact path='/editclient/:id' component={EditClient} />
+            <Route exact path='/settings' component={Configuration} />
         </Switch>
     )
 }
