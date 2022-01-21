@@ -6,15 +6,24 @@
     height: var(--topnav-height);
 }
 
-.topnav__search {
-    position: relative;
-    height: 50px;
+.topnav__search{
+    display: flex;
     background-color: var(--main-bg);
+    border-radius: var(--border-radius);
+    height: 50px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    
+
+}
+
+.topnav__left {
+    position: relative;
     display: flex;
     align-items: center;
-    box-shadow: var(--box-shadow);
-    border-radius: var(--border-radius);
     overflow: hidden;
+    justify-content: space-between;
 }
 
 .topnav__search > input {
@@ -22,6 +31,7 @@
     width: 100%;
     padding: 10px 60px 10px 20px;
     font-size: 1rem;
+    box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     color: var(--txt-color);
     background-color: var(--main-bg);

@@ -20,7 +20,7 @@
         "icon": "bx bx-package"
     },
     {
-        "display_name": "Client",
+        "display_name": "Clients",
         "route": "/client",
         "icon": "bx bx-user"
     },

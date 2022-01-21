@@ -6,8 +6,19 @@ import Input from '../../components/FormElements/Input';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import Loading from '../../components/loading/loading';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles(theme=>({
+    roott: {
+        '& .MuiButtonBase-root': {
+            background:'var(--main-color)',
+            color:'white'
+        }
+    }
+}));
 
 const Configuration = () => {
+const classes = useStyles();
     const dispatch = useDispatch();
 
     const allCompanies = useSelector(state=>state.companyReducer.company) || [];
@@ -53,6 +64,7 @@ const Configuration = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         console.log(values);
+        dispatch(editCompany(values));
     }
 
     if(loading){
@@ -70,7 +82,7 @@ const Configuration = () => {
             <Input key={i+5} name='phoneNumber' label='Numero de téléphone' value={el.phoneNumber} onChange={handleInputChange} type='number' required/>
             <Input key={i+6} name='tva' label='Code TVA' value={el.tva} onChange={handleInputChange} required/>
             <Input key={i+8} name='m_fiscal' label='Matricule Fiscale' value={el.m_fiscal} onChange={handleInputChange} required/>
-            <Button key={i+7} variant='contained' type='submit'>Submit</Button>
+            <Button className={classes.roott} key={i+7} variant='contained' type='submit'>Submit</Button>
             </Form>
             )}
         </div>

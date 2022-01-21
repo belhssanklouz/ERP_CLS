@@ -8,7 +8,7 @@ const initialState = {
     responseEdit:null
 }
 
-const companyReducer = (state = initialState,{type,payload}) => {
+const companyReducer = (state = initialState,{type,payload,data}) => {
     switch(type){
         case GET_ALL_COMPANY:
         case EDIT_COMPANY:
@@ -38,7 +38,8 @@ const companyReducer = (state = initialState,{type,payload}) => {
             return{
                 ...state,
                 loading:false,
-                responseEdit:payload
+                responseEdit:payload,
+                company:data
             }
         case EDIT_COMPANY_FAIL:
             return{

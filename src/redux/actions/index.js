@@ -247,9 +247,10 @@ export const getAllCompanies = () => async(dispatch) =>{
 export const editCompany = (edited) => async(dispatch) => {
     await dispatch({type:EDIT_COMPANY})
     try {
-        const edit = await axios.patch(`http://localhost:21236/api/v1/company/update/${edited.id}`,edited);
-        dispatch({type:EDIT_COMPANY_SUCC,payload:edit.data})
+        const edit = await axios.patch(`https://cls-erp.herokuapp.com/api/v1/company/update/${edited.id}`,edited);
+        const companies = await axios('https://cls-erp.herokuapp.com/api/v1/company/getallcompany');
+        dispatch({type:EDIT_COMPANY_SUCC,payload:edit.data,data:companies.data})
     } catch (error) {
-        dispatch({type:EDIT_COMPANY_FAIL,payload:error.response})
+        dispatch({type:EDIT_COMPANY_FAIL,payload:error})
     }
 } 
