@@ -26,14 +26,7 @@ const Categories = () => {
    const responseadd = useSelector(state => state.categoryReducer.responseadd) || null;
 
    const dispatch = useDispatch()
-  useEffect(()=>{
-
-      dispatch(getAllCategorys());
-
-  },[dispatch])
-
-  
-
+   
 const ProductsTableHead = [
   'N°',
   'name',

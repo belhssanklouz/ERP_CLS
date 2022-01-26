@@ -17,6 +17,8 @@ import AddNewClient from './AddNewClient';
 
 function Client() {
       const dispatch = useDispatch()
+      
+     // fetch with redux
 
     const loading = useSelector(state => state.clientReducer.loading);
     const client = useSelector(state => state.clientReducer.client) || [];
@@ -25,12 +27,6 @@ function Client() {
 
     const [openModal,setOpenModal] = useState(false);
     const [usersEdit,setUsersEdit] = useState(null);
-  
-     // fetch with redux
-  
-     useEffect(()=>{
-        dispatch(getAllClient())
-    },[dispatch])
   
 
   const ClientTableHead = [

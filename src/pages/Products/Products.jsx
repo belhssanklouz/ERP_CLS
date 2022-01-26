@@ -33,17 +33,6 @@ const Products = () => {
 
    // fetch with redux
 
-   useEffect(()=>{
-
-    dispatch(getAllCategorys());
-    dispatch(getAllProducts());
-
-  },[
-      0
-  ])
-
-  
-
 const ProductsTableHead = [
   'N°',
   'name',

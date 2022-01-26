@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react'
 import Table from '../../components/table/Table'
 // import customerList from '../assets/JsonData/customers-list.json'
 
-import axios from 'axios';
 import Loading from '../../components/loading/loading';
 import Modal from '../../components/Modal/Modal'
 import AddNewUser from './AddNewUser';
@@ -27,13 +26,6 @@ const Users = () => {
     const responseAdd = useSelector(state=>state.userReducer.responseAdd); 
 
     const dispatch = useDispatch();
-
-        // fetching ...
-        useEffect(()=>{
-        
-            dispatch(getAllUsers());
-    
-    },[dispatch])
 
     const UsersTableHead = [
         'N°',

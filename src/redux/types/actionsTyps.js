@@ -77,6 +77,25 @@ export const EDIT_COMPANY = 'EDIT_COMPANY';
 export const EDIT_COMPANY_SUCC = 'EDIT_COMPANY_SUCC';
 export const EDIT_COMPANY_FAIL = 'EDIT_COMPANY_FAIL';
 
+//Devis
+
+export const GET_ALL_DEVIS = 'GET_ALL_DEVIS';
+export const GET_ALL_DEVIS_SUCC = 'GET_ALL_DEVIS_SUCC';
+export const GET_ALL_DEVIS_FAIL = 'GET_ALL_DEVIS_FAIL';
+
+export const ADD_DEVIS = 'ADD_DEVIS';
+export const ADD_DEVIS_SUCC = 'ADD_DEVIS_SUCC';
+export const ADD_DEVIS_FAIL = 'ADD_DEVIS_FAIL';
+
+export const EDIT_DEVIS = 'EDIT_DEVIS';
+export const EDIT_DEVIS_SUCC = 'EDIT_DEVIS_SUCC';
+export const EDIT_DEVIS_FAIL = 'EDIT_DEVIS_FAIL';
+
+export const DELETE_DEVIS = 'DELETE_DEVIS';
+export const DELETE_DEVIS_SUCC = 'DELETE_DEVIS_SUCC';
+export const DELETE_DEVIS_FAIL = 'DELETE_DEVIS_FAIL';
+
+
 
 
 

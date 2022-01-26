@@ -25,8 +25,8 @@
         "icon": "bx bx-user"
     },
     {
-        "display_name": "Orders",
-        "route": "/orders",
+        "display_name": "Devis",
+        "route": "/devis",
         "icon": "bx bx-cart"
     },
     {

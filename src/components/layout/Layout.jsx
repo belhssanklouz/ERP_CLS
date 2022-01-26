@@ -11,6 +11,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import ThemeAction from '../../redux/actions/ThemeAction'
+import { getAllCategorys, getAllClient, getAllProducts, getAllUsers,getAllDevis } from '../../redux/actions'
 
 const Layout = () => {
 
@@ -26,7 +27,15 @@ const Layout = () => {
         dispatch(ThemeAction.setMode(themeClass))
 
         dispatch(ThemeAction.setColor(colorClass))
+
+        dispatch(getAllClient())
+        dispatch(getAllProducts())
+        dispatch(getAllUsers())
+        dispatch(getAllCategorys())
+        dispatch(getAllDevis());
+
     }, [dispatch])
+
 
     return (
         <BrowserRouter>
