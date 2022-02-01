@@ -84,12 +84,11 @@ export const getAllProducts = () => async(dispatch)=>{
     }
 }
 
-export const getProdByName = (prodName) => async (dispatch) =>{
+export const getProdByName = (prodName,qnt) => async (dispatch) =>{
     await dispatch ({type:GET_PROD_BY_NAME})
     try {
         const prod = await axios(`https://cls-erp.herokuapp.com/api/v1/product/getprodbyname/${prodName}`);
-
-        dispatch({type:GET_PROD_BY_NAME_SUCC,payload:prod.data})
+        dispatch({type:GET_PROD_BY_NAME_SUCC,payload:prod.data,qnt:qnt})
         
     } catch (error) {
         await dispatch ({type:GET_PROD_BY_NAME_FAIL,payload:error})
@@ -289,6 +288,7 @@ export const getAllDevis = () => async(dispatch) =>{
 
 export const addDevis = (newDevis,prod) => async (dispatch) =>{
     await dispatch ({type:ADD_DEVIS})
+    console.log(prod)
     try {
         const addDevis = await axios.post('https://cls-erp.herokuapp.com/api/v1/client/addclient',{numerodevis:newDevis.numerodevis,datevalidite:newDevis.datevalidite,client:newDevis.client,listproduit:prod});
         dispatch({type:ADD_DEVIS_SUCC,payload:addDevis.data})

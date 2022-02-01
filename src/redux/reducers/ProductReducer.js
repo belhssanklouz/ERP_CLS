@@ -13,7 +13,7 @@ const initialState ={
 
 }
 
-const ProductReducer = (state=initialState,{type,payload}) =>{
+const ProductReducer = (state=initialState,{type,payload,qnt}) =>{
     switch(type){
         case GET_ALL_PRODUCT:
         case EDIT_PRODUCT:
@@ -90,7 +90,7 @@ const ProductReducer = (state=initialState,{type,payload}) =>{
                     return {
                         ...state,
                         loading:false,
-                        selected:[...state.selected,payload]
+                        selected:[...state.selected,{prod:payload[0],qnt:qnt}]
                     }
                 case GET_PROD_BY_NAME_FAIL:
                     return{

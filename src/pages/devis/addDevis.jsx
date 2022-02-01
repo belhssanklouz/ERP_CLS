@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { UseForm,Form } from '../../components/form-hook/UseForm';
 import Input from '../../components/FormElements/Input';
@@ -20,7 +20,6 @@ const AddDevis = () => {
 
     const dispatch = useDispatch();
     const [inputIncr,setInputIncr] = useState([{product:'',qnt:1}]);
-    console.log("eheh",inputIncr);
     const products = useSelector(state=>state.ProductReducer.products) || [];
     const mappedProducts = products.map(data=>data.name) || [];
     const selected = useSelector(state=>state.ProductReducer.selected) || []
@@ -59,14 +58,15 @@ const AddDevis = () => {
     } = UseForm(initialValues)
 
     const confirm = (inputIncr) =>{
-        dispatch (getProdByName(inputIncr.product))
+        for(let input of inputIncr){
+            dispatch (getProdByName(input.product,input.qnt))
+        }
+        
     }
 
     const submitHandler = (e) => {
         e.preventDefault()
-    //    dispatch(addtempDevis({ name : values.numerodevis , listp : inputIncr  }))
-    //    history.push('/devis/recup')
-    confirm(inputIncr)
+        confirm(inputIncr)
     }
     
 
@@ -116,8 +116,7 @@ const AddDevis = () => {
                 </Grid>
             </Grid>
            
-            <Button variant="contained" type='submit' >Submit</Button>
-            {console.log(selected)}
+            <Button variant="contained" type='submit'>Submit</Button>
         </Form> ;
 };
 

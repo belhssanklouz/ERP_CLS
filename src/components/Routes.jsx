@@ -12,7 +12,7 @@ import EditCategorie from '../pages/Categories/EditCategorie'
 import EditProduct from '../pages/Products/EditProduct';
 import EditClient from '../pages/Client/EditClient';
 import Configuration from '../pages/Configuration/configuration';
-import Devis from '../pages/devis/Devis'
+import Devis from '../pages/devis/devis'
 
 const Routes = () => {
     return (
