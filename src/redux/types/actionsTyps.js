@@ -95,6 +95,17 @@ export const DELETE_DEVIS = 'DELETE_DEVIS';
 export const DELETE_DEVIS_SUCC = 'DELETE_DEVIS_SUCC';
 export const DELETE_DEVIS_FAIL = 'DELETE_DEVIS_FAIL';
 
+export const GET_PROD_BY_NAME = 'GET_PROD_BY_NAME';
+export const GET_PROD_BY_NAME_SUCC = 'GET_PROD_BY_NAME_SUCC';
+export const GET_PROD_BY_NAME_FAIL = 'GET_PROD_BY_NAME_FAIL';
+
+//temp devis
+
+
+
+export const ADD_TEMP_DEVIS = 'ADD_TEMP_DEVIS';
+export const ADD_TEMP_DEVIS_SUCC = 'ADD_TEMP_DEVIS_SUCC';
+export const ADD_TEMP_DEVIS_FAIL = 'ADD_TEMP_DEVIS_FAIL';
 
 
 

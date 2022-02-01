@@ -5,6 +5,7 @@ import {GET_ALL_USERS,GET_ALL_USERS_SUCC,
         DELETE_USER,DELETE_USER_SUCC,DELETE_USER_FAIL,
 
         ADD_PRODUCT,ADD_PRODUCT_SUCC,
+        GET_PROD_BY_NAME,GET_PROD_BY_NAME_SUCC,GET_PROD_BY_NAME_FAIL,
         GET_ALL_PRODUCT,GET_ALL_PRODUCT_SUCC,ADD_PRODUCT_FAIL,
         DELETE_PRODUCT,DELETE_PRODUCT_SUCC,DELETE_PRODUCT_FAIL,
         ADD_CATEGORY,ADD_CATEGORY_SUCC,ADD_CATEGORY_FAIL,GET_ALL_CATEGORY,GET_ALL_CATEGORY_SUCC,
@@ -22,7 +23,7 @@ import {GET_ALL_USERS,GET_ALL_USERS_SUCC,
         GET_ALL_DEVIS,GET_ALL_DEVIS_SUCC,GET_ALL_DEVIS_FAIL,
         ADD_DEVIS,ADD_DEVIS_SUCC,ADD_DEVIS_FAIL,
         EDIT_DEVIS,EDIT_DEVIS_SUCC,EDIT_DEVIS_FAIL,
-        DELETE_DEVIS,DELETE_DEVIS_SUCC,DELETE_DEVIS_FAIL} from '../types/actionsTyps'
+        DELETE_DEVIS,DELETE_DEVIS_SUCC,DELETE_DEVIS_FAIL, ADD_TEMP_DEVIS,ADD_TEMP_DEVIS_SUCC} from '../types/actionsTyps'
 
 
 export const getAllUsers=()=>async(dispatch)=>{
@@ -82,6 +83,20 @@ export const getAllProducts = () => async(dispatch)=>{
         console.log('get all products error',error)
     }
 }
+
+export const getProdByName = (prodName) => async (dispatch) =>{
+    await dispatch ({type:GET_PROD_BY_NAME})
+    try {
+        const prod = await axios(`https://cls-erp.herokuapp.com/api/v1/product/getprodbyname/${prodName}`);
+
+        dispatch({type:GET_PROD_BY_NAME_SUCC,payload:prod.data})
+        
+    } catch (error) {
+        await dispatch ({type:GET_PROD_BY_NAME_FAIL,payload:error})
+
+    }
+}
+
 
 export const addProducts = (newProduct) => async (dispatch) =>{
     await dispatch ({type:ADD_PRODUCT})
@@ -272,10 +287,10 @@ export const getAllDevis = () => async(dispatch) =>{
     }
 }
 
-export const addDevis = (newDevis) => async (dispatch) =>{
+export const addDevis = (newDevis,prod) => async (dispatch) =>{
     await dispatch ({type:ADD_DEVIS})
     try {
-        const addDevis = await axios.post('https://cls-erp.herokuapp.com/api/v1/client/addclient',newDevis);
+        const addDevis = await axios.post('https://cls-erp.herokuapp.com/api/v1/client/addclient',{numerodevis:newDevis.numerodevis,datevalidite:newDevis.datevalidite,client:newDevis.client,listproduit:prod});
         dispatch({type:ADD_DEVIS_SUCC,payload:addDevis.data})
         
     } catch (error) {
@@ -307,3 +322,11 @@ export const deleteDevis = (idDevis) => async(dispatch) => {
     }
 }
 
+export const addtempDevis = (ob) => async (dispatch)=>{
+     await dispatch({type :ADD_TEMP_DEVIS})
+    try {
+       await  dispatch({type: ADD_TEMP_DEVIS_SUCC , payload : ob})
+    } catch (error) {
+       await  console.log('tetetetetet errooor temp')
+    }
+}

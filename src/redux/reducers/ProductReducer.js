@@ -1,13 +1,15 @@
 import {ADD_PRODUCT,ADD_PRODUCT_SUCC,GET_ALL_PRODUCT,GET_ALL_PRODUCT_SUCC,GET_ALL_PRODUCT_FAIL,
     DELETE_PRODUCT,DELETE_PRODUCT_SUCC,DELETE_PRODUCT_FAIL,ADD_PRODUCT_FAIL,
-    EDIT_PRODUCT,EDIT_PRODUCT_SUCC,EDIT_PRODUCT_FAIL} from '../types/actionsTyps';
+    EDIT_PRODUCT,EDIT_PRODUCT_SUCC,EDIT_PRODUCT_FAIL,
+    GET_PROD_BY_NAME,GET_PROD_BY_NAME_SUCC,GET_PROD_BY_NAME_FAIL} from '../types/actionsTyps';
 
 const initialState ={
     loading:false,
     error:null,
     products:null,
     responseAdd:null,
-    responseEdit:null
+    responseEdit:null,
+    selected:[]
 
 }
 
@@ -74,6 +76,23 @@ const ProductReducer = (state=initialState,{type,payload}) =>{
                     products:payload
                 }
                 case DELETE_PRODUCT_FAIL:
+                    return{
+                        ...state,
+                        loading:false,
+                        error:payload
+                    }
+                case GET_PROD_BY_NAME :
+                    return{
+                        ...state,
+                        loading:true
+                    }
+                case GET_PROD_BY_NAME_SUCC:
+                    return {
+                        ...state,
+                        loading:false,
+                        selected:[...state.selected,payload]
+                    }
+                case GET_PROD_BY_NAME_FAIL:
                     return{
                         ...state,
                         loading:false,
