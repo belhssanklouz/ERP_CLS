@@ -13,6 +13,8 @@ import Modal from '../../components/Modal/Modal';
 import { useDispatch,useSelector } from 'react-redux';
 import { deleteDevis, getAllDevis } from '../../redux/actions';
 import AddDevis from './addDevis';
+import Overview from './overview'
+import { set } from 'react-hook-form';
 
 const Devis = () => {
 
@@ -20,7 +22,7 @@ const Devis = () => {
 
     const [openModal,setOpenModal] = useState(false);
     const [oopenModal,ssetOpenModal] = useState(false);
-
+    const [quote,setQuote] = useState(false);
     const devis = useSelector(state=>state.devisReducer.devis) || [];
     const loading = useSelector(state=>state.devisReducer.loading);
     const client = useSelector(state=>state.clientReducer.client) || [];
@@ -123,14 +125,14 @@ const Devis = () => {
               openModal={openModal}
               setOpenModal={setOpenModal}
               title='Add new Category'>
-                 <AddDevis />
+                 <AddDevis setQuote={setQuote} />
                   
                   {/* {!responseadd ?  <AddCategories setOpenModal={setOpenModal} /> : responseadd.msg } */}
               </Modal>
               <Modal
               openModal={oopenModal}
               setOpenModal={ssetOpenModal}
-              title='Hello'>
+              title='Product List'>
                   <Table
                                   limit='5'
                                   headData={ProductsListTableHead}
@@ -138,6 +140,9 @@ const Devis = () => {
                                   bodyData={listProduit}
                                   renderBody={(item, index) => renderProdListBody(item, index)}
                               />
+              </Modal>
+              <Modal openModal={quote} setOpenModal={setQuote} title='Quote Overview'>
+                <Overview />
               </Modal>
               </React.Fragment>)}
               

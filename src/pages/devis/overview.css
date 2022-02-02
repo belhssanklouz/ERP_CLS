@@ -1,0 +1,41 @@
+.quote__logo{
+    height: 150px;
+}
+.flex{
+    display: flex;
+}
+.justify-between{
+    justify-content: space-between;
+}
+.pad-16{
+    padding: 1.6rem;
+}
+.center{
+    align-items: center;
+}
+.seller-section{
+    background-color: rgb(18 23 38);
+    color: rgb(255, 255, 255);
+    margin-right: -88px;
+    padding-right: 66px;
+    width: 480px;
+}
+.w-80{
+    width: 10rem;
+}
+.seller-divider{
+    background-color: rgb(255, 255, 255);
+    opacity: .5;
+    width: 1px;
+    height: 9.6rem;
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;    
+
+}
+.pad8{
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+.margtable{
+    margin-top: 6.4rem;
+}

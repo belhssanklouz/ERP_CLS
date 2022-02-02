@@ -12,11 +12,7 @@ import { addDevis,addtempDevis,getProdByName } from '../../redux/actions';
 import './addDevis.css'
 
 
-const AddDevis = () => {
-
-
-
-
+const AddDevis = (props) => {
 
     const dispatch = useDispatch();
     const [inputIncr,setInputIncr] = useState([{product:'',qnt:1}]);
@@ -66,7 +62,9 @@ const AddDevis = () => {
 
     const submitHandler = (e) => {
         e.preventDefault()
+        props.setQuote(true)
         confirm(inputIncr)
+        
     }
     
 
