@@ -11,7 +11,7 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import ThemeAction from '../../redux/actions/ThemeAction'
-import { getAllCategorys, getAllClient, getAllProducts, getAllUsers,getAllDevis } from '../../redux/actions'
+import { getAllCategorys, getAllClient, getAllProducts, getAllUsers,getAllDevis,getAllCompanies } from '../../redux/actions'
 
 const Layout = () => {
 
@@ -33,6 +33,7 @@ const Layout = () => {
         dispatch(getAllUsers())
         dispatch(getAllCategorys())
         dispatch(getAllDevis());
+        dispatch(getAllCompanies())
 
     }, [dispatch])
 

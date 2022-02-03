@@ -1,14 +1,17 @@
-import { Grid, Table, Typography,TableHead,TableRow,TableCell, TableBody } from '@material-ui/core';
-import React from 'react';
+import { Grid, Table, Typography,TableHead,TableRow,TableCell, TableBody, Button } from '@material-ui/core';
+import React,{useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import logo from '../../assets/images/cls-logo.png'
 import './overview.css'
+import { useDispatch } from 'react-redux';
+import {addDevis} from '../../redux/actions'
 
 
 
 const Overview = () => {
+  const dispatch = useDispatch();
   const prods = useSelector(state=>state.ProductReducer.selected) || []
-
+  const company = useSelector(state=>state.companyReducer.company)
   const formatNumber = (num) =>{
     return `${num.toFixed(2)}`
   }
@@ -16,22 +19,27 @@ const Overview = () => {
   const priceRow = (qnt,unit) =>{
     return qnt*unit;
   }
+  // const total = []
 
   const rowCreation = ()=>{
-    let name;
     let qnt;
     let unit;
-    let price;
+    let total=0;
     for (let prod of prods){
-      name=prod.prod.name;
       qnt=prod.qnt;
-      unit=prod.unit;
-      price = priceRow(qnt,unit)
+      unit=prod.prod.price;
+      const price = priceRow(qnt,unit)
+      total=price+total;
     }
-    return {name,qnt,unit,price}
+    return total;
   }
-  const total = []
-  console.log(prods)
+ 
+  let total = 0;
+  total = rowCreation(total)
+  
+  
+  let price;
+  
   return <>
           <Grid container flex>
             <div className='flex justify-between'>
@@ -52,20 +60,20 @@ const Overview = () => {
                     </tr>
                   </tbody>
                 </table>
-                <p>John Doe</p>
-                <p>adress</p>
-                <p>+55 55254896</p>
-                <p>belhssan@gmail.com</p>
+                <Typography variant='body2'>John Doe</Typography>
+                <Typography variant='body2'>adress</Typography>
+                <Typography variant='body2'>+55 55254896</Typography>
+                <Typography variant='body2'>belhssan@gmail.com</Typography>
               </div>
               <div className='seller-section pad-16 center flex'>
                 <img src={logo} alt='logo' className='w-80'/>
                 <div className='seller-divider'></div>
                 <div className='pad8'>
-                  <Typography variant='body2'>Consulting @ Logiciels et Systemes</Typography>
-                  <Typography variant='body2'>Adress0</Typography>
-                  <Typography variant='body2'>+66 545451541</Typography>
-                  <Typography variant='body2'>hello@gmail.com</Typography>
-                  <Typography variant='body2'>451541/A/M</Typography>
+                  <Typography variant='body2'>{company[0].name}</Typography>
+                  <Typography variant='body2'>{company[0].adress}</Typography>
+                  <Typography variant='body2'>{company[0].phoneNumber}</Typography>
+                  <Typography variant='body2'>{company[0].email}</Typography>
+                  <Typography variant='body2'>{company[0].m_fiscal}</Typography>
                 </div>
               </div>
             </div>
@@ -93,11 +101,30 @@ const Overview = () => {
                       {el.qnt}
                     </TableCell>
                     <TableCell>
-                      {el.qnt*el.prod.price}
+                      {price = priceRow(el.qnt,el.prod.price)}
                     </TableCell>
+                    
                   </TableRow>)}
+                  <TableRow>
+                    <TableCell rowSpan={3}/>
+                    <TableCell colSpan={2}>Sous-Total</TableCell>
+                    <TableCell>{total}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Tax</TableCell>
+                    <TableCell>{company[0].tva}%</TableCell>
+                    <TableCell>{(total*company[0].tva)/100}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Total</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>{total+((total*company[0].tva)/100)}</TableCell>
+                  </TableRow>
               </TableBody>
             </Table>
+            <Button onClick={()=>dispatch(addDevis())}>Confirmer</Button>
+            <Button>Annuler</Button>
+
             </div>
           
         </>;
