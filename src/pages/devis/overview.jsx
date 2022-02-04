@@ -8,7 +8,7 @@ import {addDevis} from '../../redux/actions'
 
 
 
-const Overview = () => {
+const Overview = (props) => {
   const dispatch = useDispatch();
   const prods = useSelector(state=>state.ProductReducer.selected) || []
   const company = useSelector(state=>state.companyReducer.company)
@@ -122,8 +122,8 @@ const Overview = () => {
                   </TableRow>
               </TableBody>
             </Table>
-            <Button onClick={()=>dispatch(addDevis())}>Confirmer</Button>
-            <Button>Annuler</Button>
+            <Button style={{background:"var(--main-color)",color:"var(--txt-white)"}} variant='contained' onClick={()=>dispatch(addDevis())}>Confirmer</Button>
+            <Button variant='outlined' onClick={()=>{props.setOpenModal(false)}}>Annuler</Button>
 
             </div>
           

@@ -142,7 +142,7 @@ const Devis = () => {
                               />
               </Modal>
               <Modal openModal={quote} setOpenModal={setQuote} title='Quote Overview'>
-                <Overview />
+                <Overview setOpenModal={setQuote}/>
               </Modal>
               </React.Fragment>)}
               
